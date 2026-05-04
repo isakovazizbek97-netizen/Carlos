@@ -1,0 +1,39 @@
+class User:
+    count = 0
+    
+    def __init__(self, name, login, password, rating):
+        self.name = name
+        self._login = login
+        self.password = password
+        self.rating = rating
+        User.count += 1
+    
+    @property
+    def login(self):
+        return self._login
+    
+    @login.setter
+    def login(self, value):
+        print("Невозможно изменить логин!")
+    
+    def show_info(self):
+        print(f"Name: {self.name}, Login: {self.login}")
+    
+    def __lt__(self, a):
+        return self.rating < a.rating
+    
+    def __eq__(self, a):
+        return self.rating == a.rating
+    
+    def __getattr__(self, attr):
+        if attr == 'grade':
+            print("Неизвестное свойство grade")
+
+
+class SuperUser(User):
+    count = 0
+    
+    def __init__(self, name, login, password, role, rating):
+        super().__init__(name, login, password, rating)
+        self.role = role
+        SuperUser.count += 1
